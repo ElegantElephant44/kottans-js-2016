@@ -24,6 +24,11 @@ describe ("add", () =>{
 		add('333').should.equal(333)
 
 	})
+	it('should handle different delimeters', ()=>{
+		add('//;\n1;2').should.equal(3)
+		add('// delim \n1 delim 2').should.equal(3)
+		add('//+\n5+6').should.equal(11)
+	})
 
 	it('should handle new lines between numbers', ()=>{
 		add('1,12\n34,5,6,7,8,9').should.equal(82)
@@ -32,11 +37,7 @@ describe ("add", () =>{
 	it('should return NaN for NOT ok input', ()=>{
 		add("1,\n").should.be.NaN;
 	})
-	it('should handle different delimeters', ()=>{
-		add('//;\n1;2').should.equal(3)
-		add('// delim \n1 delim 2').should.equal(3)
-		add('//+\n5+6').should.equal(11)
-	})
+	
 
 	it('should throw error if add call with negative numbers and show all negatives', ()=>{
 		expect(add.bind(this, '1,-12\n34,-5,6,-7,8,9')).to.throw('negatives not allowed: -12,-5,-7');
